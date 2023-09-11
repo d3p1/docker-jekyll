@@ -1,0 +1,48 @@
+##
+# @description Jekyll web server configuration
+# @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+# @link        https://hub.docker.com/_/nginx
+##
+server {
+    ##
+    # @note Add HTTP configuration
+    ##
+    listen      80;
+    server_name ${HOST};
+
+    ##
+    # @note Redirect request to builded site code
+    ##
+    location / {
+        root  ${DOCUMENT_ROOT};
+        index index.html;
+    }
+
+    ##
+    # @note Set 404 error page
+    ##
+    error_page 404 /404.html;
+
+    ##
+    # @note Add gzip settings to improve performance
+    ##
+    gzip on;
+    gzip_disable "msie6";
+    gzip_comp_level 6;
+    gzip_min_length 1100;
+    gzip_buffers 16 8k;
+    gzip_proxied any;
+    gzip_types
+        text/plain
+        text/css
+        text/js
+        text/xml
+        text/javascript
+        application/javascript
+        application/x-javascript
+        application/json
+        application/xml
+        application/xml+rss
+        image/svg+xml;
+    gzip_vary on;
+}
