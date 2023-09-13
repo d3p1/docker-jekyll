@@ -13,31 +13,13 @@
 set -eu
 
 ##
-# Logger
-# @param  $1 Message
-# @return void
-# @note   Use Nginx log flag to check log generation 
-#         to mantain the same behaviour as other scripts
-# @note   Just to develop a cleaner code, `ME` is defined as local variable but
-#         this approach has the downside that it is re-declared every time this
-#         function is called
-# @link   https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/20-envsubst-on-templates.sh#L8
-##
-log() {
-    local ME=$(basename "$0");
-    if [ -z "${NGINX_ENTRYPOINT_QUIET_LOGS:-}" ]; then
-        echo "$ME: $@"
-    fi
-}
-
-##
 # Bootstrap Jekyll site with environment configuration
 # @return void
 # @note   For the moment, to avoid overcomplications,
 #         the generated configuration file 
 #         will have a fixed name: `_config.env.yml`
 ##
-bootstrap_jekyll() {
+main() {
     ##
     # @note Check if environment configuration file exists
     ##
@@ -55,6 +37,11 @@ bootstrap_jekyll() {
     # @note Build Jekyll
     ##
     build_jekyll
+
+    ##
+    # @note Return with success
+    ##
+    return 0;
 }
 
 ##
@@ -84,12 +71,25 @@ build_jekyll() {
 }
 
 ##
+# Logger
+# @param  $1 Message
+# @return void
+# @note   Use Nginx log flag to check log generation 
+#         to mantain the same behaviour as other scripts
+# @note   Just to develop a cleaner code, `ME` is defined as local variable but
+#         this approach has the downside that it is re-declared every time this
+#         function is called
+# @link   https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/20-envsubst-on-templates.sh#L8
+##
+log() {
+    local ME=$(basename "$0");
+    if [ -z "${NGINX_ENTRYPOINT_QUIET_LOGS:-}" ]; then
+        echo "$ME: $@"
+    fi
+}
+
+##
 # @note Generate Jekyll config file
 # @note Build Jekyll with new configuration
 ##
-bootstrap_jekyll
-
-##
-# @note Exit with success
-##
-exit 0
+main "$@"
