@@ -25,11 +25,14 @@ FROM nginx:alpine3.18
     # @note Create a `jekyll` user to be able to work with the environment
     #       without `root` priviligies
     ##
-    ARG USER_UID=1000
-    ARG USER_GID=$USER_UID
-    RUN addgroup -g ${USER_GID} jekyll
-    RUN adduser -u ${USER_UID} -G jekyll -s /bin/sh -D jekyll
-    USER ${USER_UID}:${USER_GID}
+    ARG JEKYLL_USER_UID=1000
+    ARG JEKYLL_USER_GID=$JEKYLL_USER_UID
+    ENV JEKYLL_USER="jekyll"
+    ENV JEKYLL_GROUP="jekyll"
+    RUN addgroup -g ${JEKYLL_USER_GID} ${JEKYLL_GROUP}
+    RUN adduser -u ${JEKYLL_USER_UID} -G ${JEKYLL_GROUP} \
+        -s /bin/sh -D ${JEKYLL_USER}
+    USER ${JEKYLL_USER_UID}:${JEKYLL_USER_GID}
 
     ##
     # @note Create environment variables needed to work with gems without `root`
@@ -101,7 +104,7 @@ FROM nginx:alpine3.18
     ENV JEKYLL_ENV_CONF_DIR="$WORK_DIR/_conf"
     ENV JEKYLL_ENV_CONF_FILE="_conf.env.yml.template"
     ENV JEKYLL_ENV_CONF_PATH=${JEKYLL_ENV_CONF_DIR}/${JEKYLL_ENV_CONF_FILE}
-    COPY --chown=${USER_UID}:${USER_GID} \
+    COPY --chown=${JEKYLL_USER_UID}:${JEKYLL_USER_GID} \
          jekyll/etc/_conf.env.yml.template ${JEKYLL_ENV_CONF_PATH}
     COPY entrypoint/25-bootstrap-jekyll.sh /docker-entrypoint.d
 
