@@ -92,7 +92,7 @@ FROM nginx:alpine3.18
     USER root:root
     ENV HOST="localhost"
     ENV DOCUMENT_ROOT="$WORK_DIR/_site"
-    COPY nginx/etc/jekyll.conf.template /etc/nginx/templates
+    COPY nginx/etc/jekyll.conf.template /etc/nginx/templates/
 
     ##
     # @note Add Jekyll entrypoint script that re-build the site 
@@ -106,6 +106,6 @@ FROM nginx:alpine3.18
     ENV JEKYLL_ENV_CONF_PATH=${JEKYLL_ENV_CONF_DIR}/${JEKYLL_ENV_CONF_FILE}
     COPY --chown=${JEKYLL_USER_UID}:${JEKYLL_USER_GID} \
          jekyll/etc/_conf.env.yml.template ${JEKYLL_ENV_CONF_PATH}
-    COPY entrypoint/25-bootstrap-jekyll.sh /docker-entrypoint.d
+    COPY entrypoint/25-bootstrap-jekyll.sh /docker-entrypoint.d/
 
 
