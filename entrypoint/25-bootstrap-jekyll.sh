@@ -67,7 +67,7 @@ generate_jekyll_config() {
     # @note Replace `${VAR}` placeholders by environment variables to generate
     #       configuration file
     ##
-    local output_file="$WORKDIR/$1"
+    local output_file="$WORK_DIR/$1"
     log "Running envsubst on $JEKYLL_ENV_CONF_PATH to $output_file"
     envsubst < "$JEKYLL_ENV_CONF_PATH" > "$output_file"
 }
@@ -78,7 +78,7 @@ generate_jekyll_config() {
 # @link   https://jekyllrb.com/docs/configuration/options/
 ##
 build_jekyll() {
-    (cd "$WORKDIR" && bundle exec jekyll build \
+    (cd "$WORK_DIR" && bundle exec jekyll build \
     --config _config.yml,_config.env.yml)
 }
 
