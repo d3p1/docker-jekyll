@@ -40,14 +40,10 @@ main() {
 
         ##
         # @note Boot Nginx
+        # @note It is used `exec` to avoid the creation of a subshell 
+        #       and to be able to send signals to this process
         ##
-        "$nginx nginx"
-
-        ##
-        # @note Log success
-        ##
-        echo "Jekyll and Nginx successfully booted ;)"
-        return 0;
+        exec "$nginx" nginx -g 'daemon off;'
     else
         ##
         # @note Log error
