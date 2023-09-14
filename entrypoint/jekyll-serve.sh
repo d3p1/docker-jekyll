@@ -26,7 +26,7 @@ main() {
     # @note Define bootstrap scripts
     ##
     local jekyll="/docker-entrypoint.d/jekyll/bootstrap.sh"
-    local nginx="/docker-entrypoint.sh nginx"
+    local nginx="/docker-entrypoint.sh"
 
     ##
     # @note Check if scripts have needed permissions to execute them
@@ -41,7 +41,7 @@ main() {
         ##
         # @note Boot Nginx
         ##
-        "$nginx"
+        "$nginx nginx"
 
         ##
         # @note Log success
