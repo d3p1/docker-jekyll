@@ -1,3 +1,17 @@
+## [1.0.1](https://github.com/d3p1/docker-jekyll/compare/v1.0.0...v1.0.1) (2023-09-14)
+
+
+### Bug Fixes
+
+* add Jekyll bootstrap script to Dockerfile [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([63ca300](https://github.com/d3p1/docker-jekyll/commit/63ca3009538413d417080457476dcd4d00332871))
+* adjust jekyll-serve bin name [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([f23d5eb](https://github.com/d3p1/docker-jekyll/commit/f23d5eb372c00a4c318764e3eb6f88fc154bb293))
+* adjust jekyll-serve permissions [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([995a972](https://github.com/d3p1/docker-jekyll/commit/995a972556f40abe7950d66011e40f558a023ded))
+* adjust jekyll-serve validation [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([97ea9c9](https://github.com/d3p1/docker-jekyll/commit/97ea9c9e124e3269b4e52f64a9342d1f21c715f9))
+* adjust nginx execution [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([14d5fad](https://github.com/d3p1/docker-jekyll/commit/14d5fad9764e398d9664c5dd171bdb126ccc19d8))
+* improve docker entrypoint logic [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([c5ff880](https://github.com/d3p1/docker-jekyll/commit/c5ff88011a6c152925b1b80ab188d996f6653c40))
+* improve Dockerfile adding new related scripts [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([f8cbec1](https://github.com/d3p1/docker-jekyll/commit/f8cbec1c54fe76bfaaa075b97035587ca96c1ec4))
+* improve Nginx entrypoint script that builds Jekyll [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([4688565](https://github.com/d3p1/docker-jekyll/commit/46885657ab2f67c8fa0c0a54a2c9423d8d4304b6))
+
 # 1.0.0 (2023-09-13)
 
 
