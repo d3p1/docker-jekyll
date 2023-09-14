@@ -40,7 +40,7 @@ main() {
         #       with needed configuration
         # @note Run Nginx as daemon
         ##
-        /docker-entrypoint.sh nginx -g 'daemon off;'
+        /docker-entrypoint.sh nginx -g 'daemon on;'
 
         ##
         # @note Exec Jekyll command as main process
