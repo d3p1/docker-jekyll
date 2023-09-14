@@ -24,7 +24,7 @@ server {
     error_page 404 /404.html;
 
     ##
-    # @note Add gzip settings to improve performance
+    # @note Add `gzip` settings to improve performance
     ##
     gzip on;
     gzip_disable "msie6";
