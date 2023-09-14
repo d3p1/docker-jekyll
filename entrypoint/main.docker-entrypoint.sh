@@ -34,8 +34,7 @@ main() {
     # @note Remember that the first container argument is 
     #       the name of the script to run
     ##
-    echo "Checking if the command to run is related to Jekyll..."
-    if [ $1 = "jekyll" ]; then
+    if [ "$1" = "jekyll" ]; then
         ##
         # @note Run Nginx entrypoint to bootstrap server 
         #       with needed configuration
