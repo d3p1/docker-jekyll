@@ -1,9 +1,13 @@
 #!/bin/sh
 
 ##
-# @description Boot Jekyll site 
-#              with an environment configuration file
+# @description Build Jekyll site 
+#              with a custom environment configuration file
 # @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
+# @note        This script will be run as part of the list of scripts that Nginx
+#              runs before boot its process (`nginx`). It will try to setup
+#              Jekyll site before web server starts
+# @link        https://github.com/nginxinc/docker-nginx/blob/master/entrypoint/docker-entrypoint.sh#L17
 ##
 
 ##
@@ -14,7 +18,7 @@
 set -eu
 
 ##
-# Boot Jekyll site with environment configuration file
+# Build Jekyll site with a custom environment configuration file
 #
 # @param  $1  Script arguments
 # @return int Exit code
@@ -29,7 +33,7 @@ main() {
     #       if the environment configuration file does not exist
     ##
     if [ ! -s "$JEKYLL_ENV_CONF_PATH" ]; then
-        echo "$JEKYLL_ENV_CONF_PATH does not exist. Skipping Jekyll boot";
+        echo "$JEKYLL_ENV_CONF_PATH does not exist. Skipping Jekyll build";
         return 0;
     fi
 
