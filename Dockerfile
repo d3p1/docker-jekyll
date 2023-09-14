@@ -105,7 +105,7 @@ FROM nginx:alpine3.18
     ENV JEKYLL_ENV_CONF_PATH=${JEKYLL_ENV_CONF_DIR}/${JEKYLL_ENV_CONF_FILE}
     COPY --chown=${JEKYLL_USER_UID}:${JEKYLL_USER_GID} \
          jekyll/etc/_conf.env.yml.template ${JEKYLL_ENV_CONF_PATH}
-    COPY entrypoint/jekyll-serve.sh /usr/local/bin/
+    COPY entrypoint/jekyll-serve.sh /usr/local/bin/jekyll-serve
 
     ##
     # @note Execute `jekyll-serve` script as default entrypoint command
