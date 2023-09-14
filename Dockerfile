@@ -67,8 +67,8 @@ FROM nginx:alpine3.18
     #       when a container runs this image, the 
     #       default entrypoint command (`nginx`) re-builds 
     #       the site with a custom configuration file
-    # @see <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
-    # @see <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
+    # @see  <project_root_dir>/jekyll/etc/_conf.env.yml.template
     # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
     ##
     ENV JEKYLL_ENV="production"
@@ -104,8 +104,8 @@ FROM nginx:alpine3.18
     #       This template configuration file could use environment variables
     #       as placeholders (`${VAR}`) that then will be replaced by the 
     #       respective environment variable value by the Jekyll build script
-    # @see <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
-    # @see <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
+    # @see  <project_root_dir>/jekyll/etc/_conf.env.yml.template
     ##
     ENV JEKYLL_ENV_CONF_DIR="$WORK_DIR/_conf"
     ENV JEKYLL_ENV_CONF_FILE="_conf.env.yml.template"
@@ -117,13 +117,17 @@ FROM nginx:alpine3.18
     # @note Add custom entrypoint that wraps Nginx image entrypoint
     # @note Add Jekyll script that re-builds the site 
     #       with a custom configuration based on environment settings
-    # @see <project_root_dir>/entrypoint/main.docker-entrypoint.sh
-    # @see <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
-    # @see <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @note It seems that, with the new entrypoint definition, is necessary to
+    #       re-define the image default command (it is not possible to re-use
+    #       the Nginx image command: `nginx -g 'daemon off;'`)
+    # @see  <project_root_dir>/entrypoint/main.docker-entrypoint.sh
+    # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
+    # @see  <project_root_dir>/jekyll/etc/_conf.env.yml.template
     # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
     ##
     COPY entrypoint/main.docker-entrypoint.sh /
     COPY nginx/entrypoint/5-build-jekyll.sh /docker-entrypoint.d/
     ENTRYPOINT ["/main.docker-entrypoint.sh"];
+    CMD ["nginx", "-g", "daemon off;"]
 
 
