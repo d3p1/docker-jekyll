@@ -1,20 +1,23 @@
 #!/bin/sh
 
 ##
-# @description Docker entrypoint to bootstrap Jekyll site 
+# @description Boot Jekyll site 
 #              with an environment configuration file
 # @author      C. M. de Picciotto <d3p1@d3p1.dev> (https://d3p1.dev/)
-# @link        https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/20-envsubst-on-templates.sh
 ##
 
 ##
-# @note Exit script if there is an error
+# 
+# @note Add flag to exit script if there is an error related to a command
+#       or if it is used an undefined variable
 ##
 set -eu
 
 ##
-# Bootstrap Jekyll site with environment configuration
-# @return void
+# Boot Jekyll site with environment configuration file
+#
+# @param  $1  Script arguments
+# @return int Exit code
 # @note   For the moment, to avoid overcomplications,
 #         the generated configuration file 
 #         will have a fixed name: `_config.env.yml`
@@ -22,9 +25,11 @@ set -eu
 main() {
     ##
     # @note Check if environment configuration file exists
+    # @note It is not considered an error 
+    #       if the environment configuration file does not exist
     ##
     if [ ! -s "$JEKYLL_ENV_CONF_PATH" ]; then
-        log "$JEKYLL_ENV_CONF_PATH does not exist. Skipping Jekyll bootstrap";
+        echo "$JEKYLL_ENV_CONF_PATH does not exist. Skipping Jekyll boot";
         return 0;
     fi
 
@@ -46,8 +51,9 @@ main() {
 
 ##
 # Generate Jekyll config file
-# @param  $1 Jekyll site environment configuration filename
-# @return void
+#
+# @param  $1  Jekyll site environment configuration filename
+# @return int Exit code
 ##
 generate_jekyll_config() {
     ##
@@ -55,37 +61,20 @@ generate_jekyll_config() {
     #       configuration file
     ##
     local output_file="$WORK_DIR/$1"
-    log "Running envsubst on $JEKYLL_ENV_CONF_PATH to $output_file"
+    echo "Running envsubst on $JEKYLL_ENV_CONF_PATH to $output_file"
     envsubst < "$JEKYLL_ENV_CONF_PATH" > "$output_file"
     chown "$JEKYLL_USER:$JEKYLL_GROUP" "$output_file"
 }
 
 ##
 # Build Jekyll
-# @return void
+#
+# @return int Exit code
 # @link   https://jekyllrb.com/docs/configuration/options/
 ##
 build_jekyll() {
     (cd "$WORK_DIR" && bundle exec jekyll build \
     --config _config.yml,_config.env.yml)
-}
-
-##
-# Logger
-# @param  $1 Message
-# @return void
-# @note   Use Nginx log flag to check log generation 
-#         to mantain the same behaviour as other scripts
-# @note   Just to develop a cleaner code, `ME` is defined as local variable but
-#         this approach has the downside that it is re-declared every time this
-#         function is called
-# @link   https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/20-envsubst-on-templates.sh#L8
-##
-log() {
-    local ME=$(basename "$0");
-    if [ -z "${NGINX_ENTRYPOINT_QUIET_LOGS:-}" ]; then
-        echo "$ME: $@"
-    fi
 }
 
 ##
