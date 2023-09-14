@@ -14,7 +14,7 @@
 #              `docker run --env HOST=<host> d3p1/jekyll:latest jekyll build --watch`
 #              (remember that the command to be run must maintain 
 #              an active process if we want the container to stay up) 
-# @link https://github.com/nginxinc/docker-nginx/blob/master/entrypoint/docker-entrypoint.sh
+# @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh
 ##
 
 ##
