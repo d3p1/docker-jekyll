@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/d3p1/docker-jekyll/compare/v1.0.1...v1.0.2) (2023-09-14)
+
+
+### Bug Fixes
+
+* add default command to Dockerfile [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([1872cbe](https://github.com/d3p1/docker-jekyll/commit/1872cbe5e8263005013a5733d3001ba4803b5fe2))
+* adjust entrypoint validation [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([c4b899b](https://github.com/d3p1/docker-jekyll/commit/c4b899b04de36d67c26a57099e8e3f7d7c9240be))
+* run Nginx as daemon when a Jekyll command is executed [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([6109f23](https://github.com/d3p1/docker-jekyll/commit/6109f236e28f3127721f03270136391ebc104b62))
+
 ## [1.0.1](https://github.com/d3p1/docker-jekyll/compare/v1.0.0...v1.0.1) (2023-09-14)
 
 
