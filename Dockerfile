@@ -39,7 +39,6 @@ FROM nginx:alpine3.18
     #       priviligies
     # @note For some reason, it is not possible to use 
     #       the `HOME` environment variable to declare `GEM_HOME`
-    # @link https://github.com/docker-library/ruby/blob/master/3.2/alpine3.18/Dockerfile#L157
     ##
     ENV GEM_HOME="/home/jekyll/.config/ruby/bundle"
     ENV BUNDLE_SILENCE_ROOT_WARNING=1
@@ -54,8 +53,10 @@ FROM nginx:alpine3.18
 
     ##
     # @note Set working dir to implement Jekyll site
-    # @note Create working dir environment variable to be able to
+    # @note Create working dir environment variable to be able to 
+    #       reference this location in scripts and 
     #       define new locations based on this one
+    # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
     ##
     ENV WORK_DIR="/var/www"
     WORKDIR ${WORK_DIR}
@@ -63,9 +64,12 @@ FROM nginx:alpine3.18
     ##
     # @note Init Jekyll site on production mode by default
     # @note For the image, it is builded this default Jekyll site but,
-    #       when a container runs this image, the `jekyll-serve`
-    #       command is executed by default, and re-builds the site with a
-    #       custom configuration file
+    #       when a container runs this image, the 
+    #       default entrypoint command (`nginx`) re-builds 
+    #       the site with a custom configuration file
+    # @see <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
+    # @see <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
     ##
     ENV JEKYLL_ENV="production"
     RUN jekyll new .
@@ -76,17 +80,15 @@ FROM nginx:alpine3.18
     # @note Setup server
     # @note To update the server configuration, it is necessary 
     #       `root` priviligies. Also, the `nginx` process 
-    #       must be run as `root`, too
+    #       (default entrypoint command) must be run as `root`, too
     # @note Add Nginx VHost template file. 
     #       When a container is started, this template file is converted to a
     #       VHost configuration file in `/etc/nginx/conf.d` replacing its 
     #       `${HOST}` and `${DOCUMENT_ROOT}` placeholders by the 
-    #       related environment variables. An example on how to run a container
-    #       with this image, could be: 
-    #       `docker run -p 80:80 --env HOST="local.test" jekyll:nginx-alpine3.18`
+    #       related environment variables
+    # @see  <project_root_dir>/nginx/etc/jekyll.conf.template
     # @link https://hub.docker.com/_/nginx
-    # @link https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/20-envsubst-on-templates.sh
-    # @link https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/Dockerfile#L122
+    # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/20-envsubst-on-templates.sh
     ##
     USER root:root
     ENV HOST="localhost"
@@ -94,23 +96,34 @@ FROM nginx:alpine3.18
     COPY nginx/etc/jekyll.conf.template /etc/nginx/templates/
 
     ##
-    # @note Add Jekyll script that re-builds the site 
-    #       with a custom configuration based on environment settings
     # @note Copy default Jekyll environment configuration file
-    # @link https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/Dockerfile#L111
-    # @link https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine-slim/docker-entrypoint.sh#L17
+    # @note When a container is started, this template file is converted to
+    #       a Jekyll configuration file localted in `$WORK_DIR/_conf.env.yml`,
+    #       and it will be used to re-build the site:
+    #       `bundle exec jekyll build --config _config.yml,_config.env.yml`.
+    #       This template configuration file could use environment variables
+    #       as placeholders (`${VAR}`) that then will be replaced by the 
+    #       respective environment variable value by the Jekyll build script
+    # @see <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
+    # @see <project_root_dir>/jekyll/etc/_conf.env.yml.template
     ##
     ENV JEKYLL_ENV_CONF_DIR="$WORK_DIR/_conf"
     ENV JEKYLL_ENV_CONF_FILE="_conf.env.yml.template"
     ENV JEKYLL_ENV_CONF_PATH=${JEKYLL_ENV_CONF_DIR}/${JEKYLL_ENV_CONF_FILE}
     COPY --chown=${JEKYLL_USER_UID}:${JEKYLL_USER_GID} \
          jekyll/etc/_conf.env.yml.template ${JEKYLL_ENV_CONF_PATH}
-    COPY jekyll/entrypoint/bootstrap.sh /docker-entrypoint.d/jekyll/
-    COPY entrypoint/jekyll-serve.sh /usr/local/bin/jekyll-serve
 
     ##
-    # @note Execute `jekyll-serve` script as default entrypoint command
+    # @note Add custom entrypoint that wraps Nginx image entrypoint
+    # @note Add Jekyll script that re-builds the site 
+    #       with a custom configuration based on environment settings
+    # @see <project_root_dir>/entrypoint/main.docker-entrypoint.sh
+    # @see <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
+    # @see <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
     ##
-    CMD ["jekyll-serve"];
+    COPY entrypoint/main.docker-entrypoint.sh /
+    COPY nginx/entrypoint/5-build-jekyll.sh /docker-entrypoint.d/
+    ENTRYPOINT ["/main.docker-entrypoint.sh"];
 
 
