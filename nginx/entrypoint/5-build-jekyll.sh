@@ -21,7 +21,6 @@ set -eu
 ##
 # Build Jekyll site with a custom environment configuration file
 #
-# @param  $1  Script arguments
 # @return int Exit code
 # @note   For the moment, to avoid overcomplications,
 #         the generated configuration file 
@@ -57,8 +56,8 @@ main() {
 ##
 # Generate Jekyll config file
 #
-# @param  $1  Jekyll site environment configuration filename
-# @return int Exit code
+# @param  string $1 Jekyll site environment configuration filename
+# @return int       Exit code
 ##
 generate_jekyll_config() {
     ##
