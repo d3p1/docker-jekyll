@@ -55,7 +55,7 @@ docker run -d -p 80:80 --env HOST=example.test d3p1/jekyll:nginx-alpine3.18 jeky
 
 Where `example.test` is the domain that our site will use in that environment.
 
-_(Note: The container is passed the command 'jekyll build --watch', which allows it to build with every change made in the source code, providing a smooth development experience)_
+_(Note: The container is passed the command `jekyll build --watch`, which allows it to build with every change made in the source code, providing a smooth development experience)_
 
 ## Brief technical overview
 
