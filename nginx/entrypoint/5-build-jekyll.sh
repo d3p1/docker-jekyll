@@ -31,6 +31,9 @@ main() {
     # @note Check if environment configuration file exists
     # @note It is not considered an error 
     #       if the environment configuration file does not exist
+    # @note If environment configuration file does not exist, the build process
+    #       will be skipped. In this case, it is considered that the site is
+    #       already ready to be served
     ##
     if [ ! -s "$JEKYLL_ENV_CONF_PATH" ]; then
         echo "$JEKYLL_ENV_CONF_PATH does not exist. Skipping Jekyll build";
@@ -64,7 +67,7 @@ generate_jekyll_config() {
     # @note Replace `${VAR}` placeholders by environment variables to generate
     #       configuration file
     ##
-    local output_file="$WORK_DIR/$1"
+    output_file="$WORK_DIR/$1"
     echo "Running envsubst on $JEKYLL_ENV_CONF_PATH to $output_file"
     envsubst < "$JEKYLL_ENV_CONF_PATH" > "$output_file"
     chown "$JEKYLL_USER:$JEKYLL_GROUP" "$output_file"
@@ -77,8 +80,8 @@ generate_jekyll_config() {
 # @link   https://jekyllrb.com/docs/configuration/options/
 ##
 build_jekyll() {
-    (cd "$WORK_DIR" && bundle exec jekyll build \
-    --config _config.yml,_config.env.yml)
+    (cd "$WORK_DIR" && bundle install && \
+     bundle exec jekyll build --config _config.yml,_config.env.yml)
 }
 
 ##
