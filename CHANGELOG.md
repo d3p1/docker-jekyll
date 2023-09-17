@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/d3p1/docker-jekyll/compare/v1.0.2...v1.0.3) (2023-09-17)
+
+
+### Bug Fixes
+
+* add bundle install to Jekyll build script [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([883b13d](https://github.com/d3p1/docker-jekyll/commit/883b13ddd5600db1a25b6975bca3101568f17f55))
+
 ## [1.0.2](https://github.com/d3p1/docker-jekyll/compare/v1.0.1...v1.0.2) (2023-09-14)
 
 
