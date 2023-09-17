@@ -25,7 +25,7 @@ set -e
 # Main
 #
 # @param  string $1 Script to run
-# @return int       Exit code
+# @return void
 ##
 main() {
     ##

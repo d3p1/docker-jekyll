@@ -21,7 +21,7 @@ set -eu
 ##
 # Build Jekyll site with a custom environment configuration file
 #
-# @return int Exit code
+# @return void
 # @note   For the moment, to avoid overcomplications,
 #         the generated configuration file 
 #         will have a fixed name: `_config.env.yml`
@@ -60,7 +60,7 @@ main() {
 # Generate Jekyll config file
 #
 # @param  string $1 Jekyll site environment configuration filename
-# @return int       Exit code
+# @return void
 ##
 generate_jekyll_config() {
     ##
@@ -76,7 +76,7 @@ generate_jekyll_config() {
 ##
 # Build Jekyll
 #
-# @return int Exit code
+# @return void
 # @link   https://jekyllrb.com/docs/configuration/options/
 ##
 build_jekyll() {
