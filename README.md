@@ -33,7 +33,7 @@ This image comes with configuration templates for both [Nginx](https://www.nginx
 
 _(Note: Configuration templates are simply files that capture values from the environment in which they are running to create the final files that the services will use)_
 
-In this way, both the [Nginx configuration template](https://github.com/d3p1/docker-jekyll/blob/v1.0.2/nginx/etc/jekyll.conf.template) and the [Jekyll configuration template](https://github.com/d3p1/docker-jekyll/blob/v1.0.2/jekyll/etc/_conf.env.yml.template) rely on the `${HOST}` environment variable. This environment variable should point to the URL that the site will use, so both [Nginx](https://www.nginx.com/) and the [Jekyll](https://jekyllrb.com/) site are correctly configured.
+In this way, both the [Nginx configuration template](https://github.com/d3p1/docker-jekyll/blob/v1.0.4/nginx/etc/jekyll.conf.template) and the [Jekyll configuration template](https://github.com/d3p1/docker-jekyll/blob/v1.0.4/jekyll/etc/_config.env.yml.template) rely on the `${HOST}` environment variable. This environment variable should point to the URL that the site will use, so both [Nginx](https://www.nginx.com/) and the [Jekyll](https://jekyllrb.com/) site are correctly configured.
 
 ### Production use
 
@@ -59,9 +59,9 @@ _(Note: The container is passed the command `bundle exec jekyll build --watch`, 
 
 ## Brief technical overview
 
-The container already comes with a default [Jekyll](https://jekyllrb.com/) site at `/var/www`, so it can be used and worked on. This location is defined in the `${DOCUMENT_ROOT}` environment variable, which is used for [certain web server configurations](https://github.com/d3p1/docker-jekyll/blob/v1.0.2/nginx/etc/jekyll.conf.template#L17), so it is usually not recommended to modify it unless you know what you are doing.
+The container already comes with a default [Jekyll](https://jekyllrb.com/) site at `/var/www`, so it can be used and worked on. This location is defined in the `${DOCUMENT_ROOT}` environment variable, which is used for [certain web server configurations](https://github.com/d3p1/docker-jekyll/blob/v1.0.4/nginx/etc/jekyll.conf.template#L17), so it is usually not recommended to modify it unless you know what you are doing.
 
-Regarding [Nginx](https://www.nginx.com/), a [standard/recommended/optimized configuration file](https://github.com/d3p1/docker-jekyll/blob/v1.0.2/nginx/etc/jekyll.conf.template) is provided to serve [Jekyll](https://jekyllrb.com/) content. This configuration file will use the value of `${HOST}` to correctly point its [`server_name`](http://nginx.org/en/docs/http/server_names.html) to the site's URL and handle requests coming from there.
+Regarding [Nginx](https://www.nginx.com/), a [standard/recommended/optimized configuration file](https://github.com/d3p1/docker-jekyll/blob/v1.0.4/nginx/etc/jekyll.conf.template) is provided to serve [Jekyll](https://jekyllrb.com/) content. This configuration file will use the value of `${HOST}` to correctly point its [`server_name`](http://nginx.org/en/docs/http/server_names.html) to the site's URL and handle requests coming from there.
 
 Regarding [Jekyll](https://jekyllrb.com/), the `${HOST}` value will be used for the [`url`](https://jekyllrb.com/docs/variables/#site-variables) value, which is used to define the URLs of the site's links. When the container starts, the configuration file will be created at `${DOCUMENT_ROOT}/_config.env.yml`, so that a site build can be performed using it: `bundle exec jekyll build --config _config.yml,_config.env.yml`.
 

@@ -68,7 +68,7 @@ FROM nginx:alpine3.18
     #       default entrypoint command (`nginx`) re-builds 
     #       the site with a custom configuration file
     # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
-    # @see  <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @see  <project_root_dir>/jekyll/etc/_config.env.yml.template
     # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
     ##
     ENV JEKYLL_ENV="production"
@@ -98,20 +98,20 @@ FROM nginx:alpine3.18
     ##
     # @note Copy default Jekyll environment configuration file
     # @note When a container is started, this template file is converted to
-    #       a Jekyll configuration file localted in `$WORK_DIR/_conf.env.yml`,
+    #       a Jekyll configuration file localted in `$WORK_DIR/_config.env.yml`,
     #       and it will be used to re-build the site:
     #       `bundle exec jekyll build --config _config.yml,_config.env.yml`.
     #       This template configuration file could use environment variables
     #       as placeholders (`${VAR}`) that then will be replaced by the 
     #       respective environment variable value by the Jekyll build script
     # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
-    # @see  <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @see  <project_root_dir>/jekyll/etc/_config.env.yml.template
     ##
     ENV JEKYLL_ENV_CONF_DIR="$WORK_DIR/_conf"
-    ENV JEKYLL_ENV_CONF_FILE="_conf.env.yml.template"
+    ENV JEKYLL_ENV_CONF_FILE="_config.env.yml.template"
     ENV JEKYLL_ENV_CONF_PATH=${JEKYLL_ENV_CONF_DIR}/${JEKYLL_ENV_CONF_FILE}
     COPY --chown=${JEKYLL_USER_UID}:${JEKYLL_USER_GID} \
-         jekyll/etc/_conf.env.yml.template ${JEKYLL_ENV_CONF_PATH}
+         jekyll/etc/_config.env.yml.template ${JEKYLL_ENV_CONF_PATH}
 
     ##
     # @note Add custom entrypoint that wraps Nginx image entrypoint
@@ -122,7 +122,7 @@ FROM nginx:alpine3.18
     #       the Nginx image command: `nginx -g 'daemon off;'`)
     # @see  <project_root_dir>/entrypoint/main.docker-entrypoint.sh
     # @see  <project_root_dir>/nginx/entrypoint/5-build-jekyll.sh
-    # @see  <project_root_dir>/jekyll/etc/_conf.env.yml.template
+    # @see  <project_root_dir>/jekyll/etc/_config.env.yml.template
     # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
     ##
     COPY entrypoint/main.docker-entrypoint.sh /

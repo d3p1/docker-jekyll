@@ -7,7 +7,7 @@
 # @note        This script will be run as part of the list of scripts that Nginx
 #              runs before boot its process (`nginx`). It will try to setup
 #              Jekyll site before web server starts
-# @see         <project_root_dir>/jekyll/etc/_conf.env.yml.template
+# @see         <project_root_dir>/jekyll/etc/_config.env.yml.template
 # @link        https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh#L17
 ##
 
