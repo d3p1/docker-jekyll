@@ -127,7 +127,7 @@ FROM nginx:alpine3.18
     ##
     COPY entrypoint/main.docker-entrypoint.sh /
     COPY nginx/entrypoint/5-build-jekyll.sh /docker-entrypoint.d/
-    ENTRYPOINT ["/main.docker-entrypoint.sh"];
+    ENTRYPOINT ["/main.docker-entrypoint.sh"]
     CMD ["nginx", "-g", "daemon off;"]
 
 
