@@ -81,7 +81,8 @@ generate_jekyll_config() {
 ##
 build_jekyll() {
     (cd "$WORK_DIR" && bundle install && \
-     bundle exec jekyll build --config _config.yml,_config.env.yml)
+     bundle exec jekyll build --config _config.yml,_config.env.yml && \
+     chown -R "$JEKYLL_USER:$JEKYLL_GROUP" "$WORK_DIR")
 }
 
 ##
