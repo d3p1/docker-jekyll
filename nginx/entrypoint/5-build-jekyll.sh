@@ -43,12 +43,12 @@ main() {
     ##
     # @note Generate Jekyll config file
     ##
-    generate_jekyll_config _config.env.yml
+    _generate_jekyll_config _config.env.yml
 
     ##
     # @note Build Jekyll
     ##
-    build_jekyll
+    _build_jekyll
 
     ##
     # @note Return with success
@@ -62,7 +62,7 @@ main() {
 # @param  string $1 Jekyll site environment configuration filename
 # @return void
 ##
-generate_jekyll_config() {
+_generate_jekyll_config() {
     ##
     # @note Replace `${VAR}` placeholders by environment variables to generate
     #       configuration file
@@ -79,7 +79,7 @@ generate_jekyll_config() {
 # @return void
 # @link   https://jekyllrb.com/docs/configuration/options/
 ##
-build_jekyll() {
+_build_jekyll() {
     (cd "$WORK_DIR" && bundle install && \
      bundle exec jekyll build --config _config.yml,_config.env.yml && \
      chown -R "$JEKYLL_USER:$JEKYLL_GROUP" "$WORK_DIR")
