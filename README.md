@@ -50,12 +50,12 @@ Where `example.com` is the domain that the site will use in that environment.
 To use this image in a development environment, you could use, for example:
 
 ```
-docker run -d -p 80:80 --env HOST=example.test d3p1/jekyll:nginx-alpine3.18 bundle exec jekyll build --watch
+docker run -d -p 80:80 --env HOST=example.test d3p1/jekyll:nginx-alpine3.18 bundle exec jekyll build --watch --config _config.yml,_config.env.yml
 ```
 
 Where `example.test` is the domain that our site will use in that environment.
 
-_(Note: The container is passed the command `bundle exec jekyll build --watch`, which allows it to build with every change made in the source code, providing a smooth development experience)_
+_(Note: The container is passed the command `bundle exec jekyll build --watch --config _config.yml,_config.env.yml`, which allows it to build with every change made in the source code, providing a smooth development experience)_
 
 ## Brief technical overview
 

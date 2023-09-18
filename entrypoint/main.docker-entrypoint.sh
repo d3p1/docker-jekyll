@@ -9,10 +9,12 @@
 #              `nginx` as a background process and will allow the Jekyll command 
 #              to be the main process of the container 
 #              (it will run in the foreground). In this way, it is possible to
-#              run commands like `bundle exec jekyll build --watch` for 
-#              development purposes (remember that the command to be run 
-#              must maintain an active process 
-#              if we want the container to stay up) 
+#              run commands like 
+#              `bundle exec jekyll build --watch \
+#               --config _config.yml,_config.env.yml` 
+#              for development purposes (remember that the command to be run 
+#              must maintain an active process if we want the container 
+#              to stay up) 
 # @link https://github.com/nginxinc/docker-nginx/blob/1.25.2/entrypoint/docker-entrypoint.sh
 ##
 
