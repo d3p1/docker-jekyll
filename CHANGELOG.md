@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/d3p1/docker-jekyll/compare/v1.0.4...v1.0.5) (2023-09-18)
+
+
+### Bug Fixes
+
+* adjust Jekyll build folder permissions [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([cfa57f0](https://github.com/d3p1/docker-jekyll/commit/cfa57f0e93a473aff49bf12314137e9cc90348de))
+
 ## [1.0.4](https://github.com/d3p1/docker-jekyll/compare/v1.0.3...v1.0.4) (2023-09-18)
 
 
