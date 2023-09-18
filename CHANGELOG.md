@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/d3p1/docker-jekyll/compare/v1.0.3...v1.0.4) (2023-09-18)
+
+
+### Bug Fixes
+
+* replace Jekyll _conf.env.yml.template file by _config.env.yml.template file [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([9247476](https://github.com/d3p1/docker-jekyll/commit/924747693e2b3bcf53c0c672a686412c7d59f362))
+
 ## [1.0.3](https://github.com/d3p1/docker-jekyll/compare/v1.0.2...v1.0.3) (2023-09-17)
 
 
