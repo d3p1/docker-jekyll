@@ -3,7 +3,7 @@
 # [DOCKER FT. JEKYLL]
 
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
-[![release](https://github.com/d3p1/docker-jekyll/actions/workflows/release.yml/badge.svg)](https://github.com/d3p1/docker-jekyll/actions/workflows/release.yml)
+[![Release](https://github.com/d3p1/docker-jekyll/actions/workflows/release.yml/badge.svg)](https://github.com/d3p1/docker-jekyll/actions/workflows/release.yml)
 
 </div>
 
