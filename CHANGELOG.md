@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/d3p1/docker-jekyll/compare/v1.0.5...v1.0.6) (2023-10-18)
+
+
+### Bug Fixes
+
+* remove pull request event from release workflow [[#1](https://github.com/d3p1/docker-jekyll/issues/1)] ([da07f6c](https://github.com/d3p1/docker-jekyll/commit/da07f6cd5507c1dabdcb2fe63ef2b096ef754a01))
+
 ## [1.0.5](https://github.com/d3p1/docker-jekyll/compare/v1.0.4...v1.0.5) (2023-09-18)
 
 
